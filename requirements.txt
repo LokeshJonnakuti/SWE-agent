@@ -19,3 +19,4 @@ rich-argparse
 flask
 flask-cors
 flask-socketio
+security==1.2.1
