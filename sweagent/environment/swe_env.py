@@ -5,6 +5,7 @@ import hashlib
 import json
 import os
 import re
+import secrets
 import subprocess
 import time
 import traceback
@@ -40,7 +41,6 @@ from sweagent.environment.utils import (
 )
 from sweagent.utils.config import keys_config
 from sweagent.utils.log import default_logger, get_logger
-import secrets
 
 LONG_TIMEOUT = 500
 PATH_TO_REQS = "/root/requirements.txt"
