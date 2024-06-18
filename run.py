@@ -2,9 +2,10 @@ from __future__ import annotations
 
 import logging
 
+from security import safe_command
+
 from sweagent import CONFIG_DIR
 from sweagent.utils.log import get_logger
-from security import safe_command
 
 try:
     import rich

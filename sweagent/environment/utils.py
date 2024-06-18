@@ -19,12 +19,12 @@ from typing import Any, Callable
 from datasets import load_dataset, load_from_disk
 from ghapi.all import GhApi
 from git import InvalidGitRepositoryError, Repo
+from security import safe_command
 
 import docker
 from docker.models.containers import Container
 from sweagent.utils.config import keys_config
 from sweagent.utils.log import get_logger
-from security import safe_command
 
 DOCKER_START_UP_DELAY = float(keys_config.get("SWE_AGENT_DOCKER_START_UP_DELAY", 1))
 GITHUB_ISSUE_URL_PATTERN = re.compile(r"github\.com\/(.*?)\/(.*?)\/issues\/(\d+)")
@@ -269,7 +269,9 @@ def _get_non_persistent_container(ctr_name: str, image_name: str) -> tuple[subpr
         "-l",
     ]
     logger.debug("Starting container with command: %s", shlex.join(startup_cmd))
-    container = safe_command.run(subprocess.Popen, startup_cmd,
+    container = safe_command.run(
+        subprocess.Popen,
+        startup_cmd,
         stdin=PIPE,
         stdout=PIPE,
         stderr=STDOUT,
@@ -325,7 +327,9 @@ def _get_persistent_container(
         "-l",
     ]
     logger.debug("Starting container with command: %s", shlex.join(startup_cmd))
-    container = safe_command.run(subprocess.Popen, startup_cmd,
+    container = safe_command.run(
+        subprocess.Popen,
+        startup_cmd,
         stdin=PIPE,
         stdout=PIPE,
         stderr=STDOUT,
