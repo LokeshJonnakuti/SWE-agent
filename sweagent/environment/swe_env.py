@@ -41,6 +41,7 @@ from sweagent.environment.utils import (
 )
 from sweagent.utils.config import keys_config
 from sweagent.utils.log import default_logger, get_logger
+from security import safe_command
 
 LONG_TIMEOUT = 500
 PATH_TO_REQS = "/root/requirements.txt"
@@ -394,8 +395,7 @@ class SWEEnv(gym.Env):
         path_to_patch = "test.patch"
         with open(path_to_patch, "w") as f:
             f.write(self.record["test_patch"])
-        subprocess.run(
-            f"docker cp {path_to_patch} {self.container_name}:/root/test.patch",
+        safe_command.run(subprocess.run, f"docker cp {path_to_patch} {self.container_name}:/root/test.patch",
             shell=True,
             check=False,
         )
